@@ -7,7 +7,11 @@ import register from "../pages/register.vue";
 import home from "../pages/home.vue"
 // @ts-ignore
 import user from "../pages/user.vue"
+// @ts-ignore
+import community from "../pages/community.vue"
 
+// @ts-ignore
+import concern from "../pages/concern.vue"
 const router = createRouter({
     history: createWebHistory(),
     routes:[
@@ -31,6 +35,14 @@ const router = createRouter({
         {
             path:'/user',
             component:user,
+        },
+        {
+            path:'/community',
+            component:community
+        },
+        {
+            path:'/concern',
+            component:concern,
         }
     ]
 })

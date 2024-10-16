@@ -74,7 +74,7 @@ let following = ref(260)
 }
 
 .profile-card {
-  width: 400px;
+  width: 80%;
   margin-bottom: 20px;
 }
 

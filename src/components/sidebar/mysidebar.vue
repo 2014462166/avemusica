@@ -28,9 +28,8 @@ const handleClose = (key, keyPath) => {
         @close="handleClose"
     >
       <el-menu-item index="/home">首页</el-menu-item>
-      <el-menu-item index="2">社区</el-menu-item>
-      <el-menu-item index="3">动态</el-menu-item>
-      <el-menu-item index="4">关注</el-menu-item>
+      <el-menu-item index="/community">社区</el-menu-item>
+      <el-menu-item index="/concern">关注</el-menu-item>
       <el-menu-item  index="/user">我的</el-menu-item>
 
 
