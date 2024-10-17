@@ -7,6 +7,7 @@ let password = ref("");
 let nickname = ref("")
 let address = ref("")
 let sex = ref("")
+let telephone = ref("")
 </script>
 
 <template>
@@ -50,6 +51,15 @@ let sex = ref("")
                 <label for="address">地址</label>
                 <el-input clearable style="width: 160px" class="input" id="address"
                           placeholder="请输入地址" v-model="address"/>
+
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="12">
+              <el-form-item>
+                <label for="telephone">电话</label>
+                <el-input clearable style="width: 160px" class="input" id="telephone"
+                          placeholder="请输入电话" v-model="telephone"/>
 
               </el-form-item>
             </el-col>

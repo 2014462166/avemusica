@@ -9,7 +9,8 @@ import home from "../pages/home.vue"
 import user from "../pages/user.vue"
 // @ts-ignore
 import community from "../pages/community.vue"
-
+// @ts-ignore
+import userInfo from "../pages/userInfo.vue"
 // @ts-ignore
 import concern from "../pages/concern.vue"
 const router = createRouter({
@@ -35,6 +36,7 @@ const router = createRouter({
         {
             path:'/user',
             component:user,
+
         },
         {
             path:'/community',
@@ -43,6 +45,10 @@ const router = createRouter({
         {
             path:'/concern',
             component:concern,
+        },
+        {
+            path:'/information',
+            component:userInfo,
         }
     ]
 })
