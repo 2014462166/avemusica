@@ -169,9 +169,9 @@ const handleClose = (done) => {
             </div>
           </template>
           <el-icon >
-            <Male v-if="sex='male'"/>
-            <Female v-else-if="sex='female'"/>
-            <QuestionFilled v-else-if="sex='unknown'"/>
+            <Male v-if="sex==='male'"/>
+            <Female v-if="sex==='female'"/>
+            <QuestionFilled v-if="sex==='unknown'"/>
           </el-icon>
         </el-descriptions-item>
 

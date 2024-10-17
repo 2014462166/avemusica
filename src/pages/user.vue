@@ -20,7 +20,7 @@ let following = ref(260)
 
     const editProfile = () => {
 
-      router.push({path:"/information"})
+      router.push({path:"/user/information"})
       // 编辑资料的逻辑
       //ElMessage.success('编辑资料功能尚未实现');
     };

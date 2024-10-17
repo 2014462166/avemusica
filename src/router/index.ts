@@ -36,7 +36,6 @@ const router = createRouter({
         {
             path:'/user',
             component:user,
-
         },
         {
             path:'/community',
@@ -47,7 +46,7 @@ const router = createRouter({
             component:concern,
         },
         {
-            path:'/information',
+            path:'/user/information',
             component:userInfo,
         }
     ]
