@@ -1,11 +1,46 @@
 <script setup>
 
 import {ref} from "vue";
+import {ElMessage} from "element-plus";
+import {userLogin,userInfo} from "@/api/user.ts";
+import {router} from "@/router/index.ts";
+
 
 let username = ref("");
 let password = ref("");
 
+function handleLogin() {
+  userLogin({
+    username: username.value,
+    password: password.value
+  }).then(res => {
+    if (res.data.code === '000') {
+      console.log(res);
+      ElMessage({
+        message: "登录成功",
+        type: 'success',
+        center: true,
+      });
+      const token = res.data.result;
+      sessionStorage.setItem('token', token);
+      userInfo().then(res => {
+        sessionStorage.setItem('name', res.data.result.name);
+        sessionStorage.setItem('phone', res.data.result.telephone);
 
+        sessionStorage.setItem('role', res.data.result.role);
+
+        router.push({path: "/home"});
+      });
+    } else if (res.data.code === '400') {
+      ElMessage({
+        message: res.data.msg,
+        type: 'error',
+        center: true,
+      });
+      password.value = '';
+    }
+  });
+}
 </script>
 
 <template>
@@ -35,7 +70,7 @@ let password = ref("");
         </el-form>
       </div>
       <div style="display: flex;justify-content: space-evenly;">
-        <el-button color="#39C5BB"><el-text style="color: white">登录</el-text></el-button>
+        <el-button color="#39C5BB" @click="handleLogin"><el-text style="color: white">登录</el-text></el-button>
         <router-link to="/register">
           <el-button  color="#39C5BB"><el-text style="color: white">注册</el-text></el-button>
         </router-link>

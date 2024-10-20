@@ -1,6 +1,11 @@
 <script setup>
 
-import {ref} from "vue";
+import {computed, ref} from "vue";
+import {userRegister} from "@/api/user.ts";
+import {ElMessage} from "element-plus";
+import {router} from "@/router/index.ts";
+
+
 
 let username = ref("");
 let password = ref("");
@@ -8,6 +13,39 @@ let nickname = ref("")
 let address = ref("")
 let sex = ref("")
 let telephone = ref("")
+// 注册按钮可用性
+const registerDisabled = computed(() => {
+  return !(username.value!==''&&password.value!==''&&nickname.value!==''
+      &&address.value!==''&&sex.value!==''&&telephone.value!=='');
+})
+
+
+// 注册按钮触发
+function handleRegister() {
+  userRegister({
+    username:username.value,
+    password:password.value,
+    nickname:nickname.value,
+    address:address.value,
+    telephone:telephone.value,
+    sex:sex.value
+  }).then(res => {
+    if (res.data.code === '000') {
+      ElMessage({
+        message: "注册成功！请登录账号",
+        type: 'success',
+        center: true,
+      })
+      router.push({path: "/login"})
+    } else if (res.data.code === '400') {
+      ElMessage({
+        message: res.data.msg,
+        type: 'error',
+        center: true,
+      })
+    }
+  })
+}
 </script>
 
 <template>
@@ -88,7 +126,9 @@ let telephone = ref("")
         </el-form>
       </div>
       <div style="display: flex;justify-content: space-evenly;">
-        <el-button color="#39C5BB">
+        <el-button color="#39C5BB" @click.prevent="handleRegister"
+        :disabled="registerDisabled"
+        >
           <el-text style="color: white">注册</el-text>
         </el-button>
       </div>
