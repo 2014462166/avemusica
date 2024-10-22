@@ -29,6 +29,9 @@ export const userRegister = async (registerInfo: RegisterInfo) => {
     return axios.post(`${USER_MODULE}/register`, registerInfo,
         {headers: {'Content-Type': 'application/json'}})
         .then(res => {
+            console.log(323233232)
+            console.log(res)
+            console.log(registerInfo)
             return res;
         });
 };

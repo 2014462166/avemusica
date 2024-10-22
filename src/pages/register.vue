@@ -1,7 +1,7 @@
 <script setup>
 
 import {computed, ref} from "vue";
-import {userRegister} from "@/api/user.ts";
+import {userInfo, userRegister} from "@/api/user.ts";
 import {ElMessage} from "element-plus";
 import {router} from "@/router/index.ts";
 
@@ -36,6 +36,7 @@ function handleRegister() {
         type: 'success',
         center: true,
       })
+
       router.push({path: "/login"})
     } else if (res.data.code === '400') {
       ElMessage({
@@ -61,7 +62,7 @@ function handleRegister() {
             <el-col :span="12">
               <el-form-item>
                 <label for="nickname">昵称</label>
-                <el-input clearable style="width: 160px" class="input" id="username" type="text"
+                <el-input clearable style="width: 160px" class="input" id="nickname" type="text"
                           placeholder="请输入昵称"
                           v-model="nickname"/>
               </el-form-item>

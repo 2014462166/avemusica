@@ -13,9 +13,13 @@ import axios from "axios";
 axios.defaults.baseURL = ("http://localhost:8080");
 axios.defaults.timeout = 30000;
 
+
+
 const app = createApp(App)
 const pinia =  createPinia()
 app.use(ElementPlus)
+
+
 app.use(router)
 app.use(pinia)
 app.mount('#app')

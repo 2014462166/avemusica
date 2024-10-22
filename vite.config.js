@@ -24,5 +24,21 @@ export default defineConfig({
   server: {
     port: 8060,   //设定前端运行的端口
     open: true,
+    proxy: {
+      // 在此处编写代理规则
+      // '/api': {
+      //   target: 'http://localhost:8080',
+      //   changeOrigin: true,
+      //   rewrite: (path) => {
+      //     return path.replace(/\/api/, '')
+      //   }
+      // }
+    }
+
   },
+  base: './',
+  define: {
+    // enable hydration mismatch details in production build
+    __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'true'
+  }
 })
