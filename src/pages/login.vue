@@ -27,8 +27,6 @@ function handleLogin() {
         sessionStorage.setItem('name', res.data.result.name);
         sessionStorage.setItem('phone', res.data.result.telephone);
 
-        sessionStorage.setItem('role', res.data.result.role);
-
         router.push({path: "/home"});
       });
     } else if (res.data.code === '400') {
