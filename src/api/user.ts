@@ -1,6 +1,8 @@
 import {USER_MODULE} from "./_prefix";
-import axios from "axios";
+import {Axios} from "../utils/request"
+import axios from 'axios'
 import {ref} from "vue";
+//import axios from "axios";
 
 type LoginInfo = {
     username:string,
@@ -20,7 +22,7 @@ export const userLogin = async (loginInfo:LoginInfo)=>
 {
     return axios.post(`${USER_MODULE}/login`,null,{params:loginInfo})
         .then(res=>{
-            console.log(res)
+         //   console.log(res)
             return res;
         })
 }
@@ -29,9 +31,9 @@ export const userRegister = async (registerInfo: RegisterInfo) => {
     return axios.post(`${USER_MODULE}/register`, registerInfo,
         {headers: {'Content-Type': 'application/json'}})
         .then(res => {
-            console.log(323233232)
-            console.log(res)
-            console.log(registerInfo)
+           // console.log(323233232)
+            //console.log(res)
+           // console.log(registerInfo)
             return res;
         });
 };
@@ -39,8 +41,9 @@ export const userRegister = async (registerInfo: RegisterInfo) => {
 
 // 获取用户信息
 export const userInfo = async () => {
-    return axios.get(`${USER_MODULE}`)
+    return Axios.get(`${USER_MODULE}`)
         .then(res => {
+            console.log(res)
             return res;
         });
 };

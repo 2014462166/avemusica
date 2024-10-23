@@ -10,6 +10,7 @@ let username = ref("");
 let password = ref("");
 
 function handleLogin() {
+
   userLogin({
     username: username.value,
     password: password.value
@@ -23,10 +24,9 @@ function handleLogin() {
       });
       const token = res.data.result;
       sessionStorage.setItem('token', token);
+      console.log(token+'0');
       userInfo().then(res => {
-        sessionStorage.setItem('name', res.data.result.name);
-        sessionStorage.setItem('phone', res.data.result.telephone);
-
+        console.log(token+'1');
         router.push({path: "/home"});
       });
     } else if (res.data.code === '400') {
