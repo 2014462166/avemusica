@@ -1,6 +1,6 @@
 import {USER_MODULE} from "./_prefix";
-import {Axios} from "../utils/request"
-import axios from 'axios'
+ import {axios} from "../utils/request"
+// import axios from 'axios'
 import {ref} from "vue";
 //import axios from "axios";
 
@@ -41,9 +41,9 @@ export const userRegister = async (registerInfo: RegisterInfo) => {
 
 // 获取用户信息
 export const userInfo = async () => {
-    return Axios.get(`${USER_MODULE}`)
+    return axios.get(`${USER_MODULE}`)
         .then(res => {
-            console.log(res)
+            //console.log(res)
             return res;
         });
 };

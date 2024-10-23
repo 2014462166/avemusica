@@ -16,7 +16,7 @@ function handleLogin() {
     password: password.value
   }).then(res => {
     if (res.data.code === '000') {
-      console.log(res);
+
       ElMessage({
         message: "登录成功",
         type: 'success',
@@ -24,9 +24,12 @@ function handleLogin() {
       });
       const token = res.data.result;
       sessionStorage.setItem('token', token);
-      console.log(token+'0');
+
+
       userInfo().then(res => {
-        console.log(token+'1');
+        console.log(res.data)
+        console.log(6666666)
+        // sessionStorage.setItem('username',res.data.result.username)
         router.push({path: "/home"});
       });
     } else if (res.data.code === '400') {

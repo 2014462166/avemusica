@@ -25,7 +25,7 @@ const musics = [{
 
 
 onMounted(() => {
-  console.log(musics);
+  //console.log(musics);
 });
 
 </script>
