@@ -29,6 +29,11 @@ function handleLogin() {
       userInfo().then(res => {
         console.log(res.data)
         console.log(6666666)
+        sessionStorage.setItem('username',res.data.result.username)
+        sessionStorage.setItem('nickname',res.data.result.nickname)
+        sessionStorage.setItem('address',res.data.result.address)
+        sessionStorage.setItem('sex',res.data.result.sex)
+        sessionStorage.setItem('telephone',res.data.result.telephone)
         // sessionStorage.setItem('username',res.data.result.username)
         router.push({path: "/home"});
       });

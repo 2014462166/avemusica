@@ -1,7 +1,7 @@
 <script setup>
 import mySidebar from "@/components/sidebar/mysidebar.vue";
-import {ElDrawer,ElMessageBox} from 'element-plus'
-import {ref,reactive} from "vue";
+import {ElDrawer, ElMessage, ElMessageBox} from 'element-plus'
+import {ref,reactive,onMounted} from "vue";
 import {
   Edit,
   Female,
@@ -9,12 +9,16 @@ import {
   OfficeBuilding, QuestionFilled,
   User,
 } from '@element-plus/icons-vue';
-
 import img_URL from "@/assets/fulilian.jpg";
-let username = ref("132131232")
-let telephone = ref("1234567890")
-let nickname = ref("TheUndertaker")
-let address = ref("中国南京")
+import {UpdateUserInfo, userInfo} from "@/api/user.ts";
+import {router} from "@/router/index.ts";
+
+
+
+let username = ref("")
+let telephone = ref("")
+let nickname = ref("")
+let address = ref("")
 let sex = ref("unknown")
 let avatarUrl = ref("")
 const dialog = ref(false)
@@ -24,6 +28,7 @@ let timer
 
 
 const onClick = () => {
+  updateInfo()
   loading.value = true
   setTimeout(() => {
     loading.value = false
@@ -31,6 +36,43 @@ const onClick = () => {
   }, 400)
 }
 
+//获取用户信息
+function getUserInfo()
+{
+  userInfo().then(res=>{
+    username.value = res.data.result.username;
+    nickname.value = res.data.result.nickname;
+    sex.value = res.data.result.sex;
+    address.value= res.data.result.address;
+    telephone.value = res.data.result.telephone;
+  })
+}
+//更新用户信息
+function updateInfo()
+{
+ UpdateUserInfo({
+   username:username.value,
+   nickname:nickname.value,
+   sex:sex.value,
+   address:address.value,
+   telephone:telephone.value
+ })
+     .then(res=>{
+       if (res.data.code === '000') {
+         ElMessage({
+           message: "修改成功",
+           type: 'success',
+           center: true,
+         })
+       } else if (res.data.code === '400') {
+         ElMessage({
+           message: res.data.msg,
+           type: 'error',
+           center: true,
+         })
+       }
+     })
+}
 
 const cancelForm = () => {
   loading.value = false
@@ -56,7 +98,11 @@ const handleClose = (done) => {
       .catch(() => {
         // catch error
       })
-}
+};
+onMounted(()=>{
+  getUserInfo();
+});
+
 
 </script>
 
@@ -110,7 +156,7 @@ const handleClose = (done) => {
           </el-form>
           <div class="demo-drawer__footer">
             <el-button @click="cancelForm">Cancel</el-button>
-            <el-button type="primary" :loading="loading" @click="onClick">
+            <el-button   type="primary" :loading="loading" @click="onClick">
               {{ loading ? 'Submitting ...' : 'Submit' }}
             </el-button>
           </div>

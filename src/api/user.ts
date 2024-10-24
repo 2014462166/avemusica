@@ -8,6 +8,14 @@ type LoginInfo = {
     username:string,
     password:string
 }
+
+type UpdateInfo ={
+    username:string,
+    telephone:string,
+    sex:string,
+    nickname:string,
+    address:string
+}
 type RegisterInfo={
     username:string,
     password:string,
@@ -46,4 +54,12 @@ export const userInfo = async () => {
             //console.log(res)
             return res;
         });
+};
+
+//更新用户信息
+export const UpdateUserInfo = async (updateInfo:UpdateInfo)=>{
+    return axios.post(`${USER_MODULE}`,updateInfo,{headers: {'Content-Type': 'application/json'}})
+        .then(res=>{
+            return res;
+        })
 };

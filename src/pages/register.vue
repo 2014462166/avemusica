@@ -19,6 +19,10 @@ const registerDisabled = computed(() => {
       &&address.value!==''&&sex.value!==''&&telephone.value!=='');
 })
 
+function backLogin()
+{
+  router.push({path:'/login'})
+}
 
 // 注册按钮触发
 function handleRegister() {
@@ -99,7 +103,6 @@ function handleRegister() {
                 <label for="telephone">电话</label>
                 <el-input clearable style="width: 160px" class="input" id="telephone"
                           placeholder="请输入电话" v-model="telephone"/>
-
               </el-form-item>
             </el-col>
 
@@ -114,16 +117,6 @@ function handleRegister() {
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
-
-
-          </el-row>
-
-
-          <el-form-item>
-
-
-          </el-form-item>
         </el-form>
       </div>
       <div style="display: flex;justify-content: space-evenly;">
@@ -131,6 +124,9 @@ function handleRegister() {
         :disabled="registerDisabled"
         >
           <el-text style="color: white">注册</el-text>
+        </el-button>
+        <el-button color="#39C5BB" @click="backLogin" >
+          <el-text style="color: white">返回</el-text>
         </el-button>
       </div>
     </el-card>
