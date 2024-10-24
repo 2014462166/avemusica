@@ -1,5 +1,5 @@
 <script setup>
-import mySidebar from "../components/sidebar/mysidebar.vue"
+import mySidebar from "../../components/sidebar/mysidebar.vue"
 import {onMounted} from "vue";
 
 
@@ -67,7 +67,7 @@ onMounted(() => {
                     {{ music.author }}
                   </h4>
                   <audio controls style="width: 100%">
-                    <source src="../assets/music1.mp3">
+                    <source src="../../assets/music1.mp3">
                   </audio>
                 </div>
               </el-col>

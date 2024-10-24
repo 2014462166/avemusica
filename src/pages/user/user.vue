@@ -1,5 +1,5 @@
 <script setup>
-import mySidebar from "../components/sidebar/mysidebar.vue"
+import mySidebar from "../../components/sidebar/mysidebar.vue"
 import { ref } from 'vue';
 import { ElMessage } from 'element-plus';
 import img_URL from '@/assets/fulilian.jpg'
@@ -23,6 +23,10 @@ let following = ref(260)
       router.push({path:"/user/information"})
       // 编辑资料的逻辑
       //ElMessage.success('编辑资料功能尚未实现');
+    };
+
+    const changePassword=()=>{
+      router.push({path:"/user/changePassword"});
     };
 
     const viewFavorites = () => {
@@ -50,6 +54,7 @@ let following = ref(260)
           </div>
           <div style="margin-top: 10px" class="card-body">
             <el-button type="primary" @click="editProfile">编辑资料</el-button>
+            <el-button type="primary" @click="changePassword">修改密码</el-button>
             <el-button type="primary" @click="viewFavorites">查看收藏</el-button>
           </div>
         </el-card>

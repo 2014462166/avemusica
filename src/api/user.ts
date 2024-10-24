@@ -1,6 +1,6 @@
 import {USER_MODULE} from "./_prefix";
  import {axios} from "../utils/request"
-// import axios from 'axios'
+
 import {ref} from "vue";
 //import axios from "axios";
 
@@ -8,7 +8,10 @@ type LoginInfo = {
     username:string,
     password:string
 }
-
+type UpdatePassword = {
+    oldPassword:string,
+    newPassword:string,
+}
 type UpdateInfo ={
     username:string,
     telephone:string,
@@ -63,3 +66,13 @@ export const UpdateUserInfo = async (updateInfo:UpdateInfo)=>{
             return res;
         })
 };
+
+//修改密码
+export const UpdateUserPassword = async (updatePassword :UpdatePassword)=>{
+    return axios.post(`${USER_MODULE}/changePassword`,null,{headers: {'Content-Type': 'application/json'},params:updatePassword})
+        .then(res=>
+        {
+            console.log(res);
+            return res;
+        })
+}

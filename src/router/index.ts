@@ -4,15 +4,17 @@ import login from "../pages/login.vue";
 // @ts-ignore
 import register from "../pages/register.vue";
 // @ts-ignore
-import home from "../pages/home.vue"
+import home from "../pages/home/home.vue"
 // @ts-ignore
-import user from "../pages/user.vue"
+import user from "../pages/user/user.vue"
 // @ts-ignore
-import community from "../pages/community.vue"
+import community from "../pages/community/community.vue"
 // @ts-ignore
-import userInfo from "../pages/userInfo.vue"
+import userInfo from "../pages/user/userInfo.vue"
 // @ts-ignore
 import concern from "../pages/concern.vue"
+// @ts-ignore
+import userPassword from "../pages/user/userPassword.vue"
 const router = createRouter({
     history: createWebHistory(),
     routes:[
@@ -48,6 +50,10 @@ const router = createRouter({
         {
             path:'/user/information',
             component:userInfo,
+        },
+        {
+            path:'/user/changePassword',
+            component:userPassword,
         }
     ]
 })
