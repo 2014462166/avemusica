@@ -1,17 +1,18 @@
-<script setup>
+<script setup >
 import mySidebar from "@/components/sidebar/mysidebar.vue";
 import {ElDrawer, ElMessage, ElMessageBox} from 'element-plus'
-import {ref,reactive,onMounted} from "vue";
+import {ref,onMounted} from "vue";
 import {
   Edit,
   Female,
   Iphone, Male,
-  OfficeBuilding, QuestionFilled,
+  OfficeBuilding, QuestionFilled, UploadFilled,
   User,
 } from '@element-plus/icons-vue';
 import img_URL from "@/assets/fulilian.jpg";
 import {UpdateUserInfo, userInfo} from "@/api/user.ts";
 import {router} from "@/router/index.ts";
+import {uploadImage} from "@/api/tool.ts";
 
 
 
@@ -24,17 +25,33 @@ let avatarUrl = ref("")
 const dialog = ref(false)
 const loading = ref(false)
 const formLabelWidth = '80px'
+// v-model 绑定file-list
+const imageFileList = ref([] );
+
+// 存返回的imgUrl
+const imgURLs = ref([] );
 let timer
 
 
-const onClick = () => {
-  updateInfo()
+async function onClick() {
+  await loopUpload();
+  updateInfo();
   loading.value = true
   setTimeout(() => {
     loading.value = false
     dialog.value = false
   }, 400)
 }
+
+async function loopUpload() {
+  for (let image of imageFileList.value) {
+    let formData = new FormData();
+    formData.append('file', image.raw);
+    const res = await uploadImage(formData);
+    imgURLs.value.push(res.data.result);
+  }
+}
+
 
 //获取用户信息
 function getUserInfo()
@@ -45,6 +62,7 @@ function getUserInfo()
     sex.value = res.data.result.sex;
     address.value= res.data.result.address;
     telephone.value = res.data.result.telephone;
+    avatarUrl.value = res.data.result.imgURL
   })
 }
 //更新用户信息
@@ -55,7 +73,8 @@ function updateInfo()
    nickname:nickname.value,
    sex:sex.value,
    address:address.value,
-   telephone:telephone.value
+   telephone:telephone.value,
+   imgURL:imgURLs.value[0]
  })
      .then(res=>{
        if (res.data.code === '000') {
@@ -71,7 +90,14 @@ function updateInfo()
            center: true,
          })
        }
+       getUserInfo();
      })
+}
+function handleExceed() {
+  ElMessage.warning(`当前限制选择 1 个文件`);
+}
+function uploadHttpRequest() {
+  return new XMLHttpRequest();
 }
 
 const cancelForm = () => {
@@ -110,7 +136,7 @@ onMounted(()=>{
   <el-container>
     <my-sidebar/>
     <el-main>
-      <el-avatar :src="img_URL"  :fit="'fill'" :size="80"/>
+      <el-avatar :src="avatarUrl"  :fit="'fill'" :size="80"/>
       <el-button color="#39C5BB"  @click="dialog=true" round >
         <el-text style="color: white">编辑信息</el-text>
         <el-icon color="white">
@@ -126,7 +152,32 @@ onMounted(()=>{
         class="demo-drawer"
       >
         <div class="demo-drawer__content">
+
+
           <el-form >
+
+            <el-form-item label="头像">
+              <el-upload
+                  v-model:file-list="imageFileList"
+                  :limit="1"
+                  :on-exceed="handleExceed"
+                  class="upload-demo input"
+                  list-type="picture"
+                  :http-request="uploadHttpRequest"
+                  drag
+              >
+                <el-icon class="el-icon--upload">
+                  <upload-filled/>
+                </el-icon>
+                <div class="el-upload__text">
+                  将文件拖到此处或单击此处上传。仅允许上传一份文件。
+                </div>
+              </el-upload>
+            </el-form-item>
+
+
+
+
             <el-form-item label="用户名" :label-width="formLabelWidth">
               <el-input v-model="username" autocomplete="off" />
             </el-form-item>
@@ -226,7 +277,7 @@ onMounted(()=>{
         <el-descriptions-item label="Address">
           <template #label>
             <div class="cell-item">
-              <el-icon :style="iconStyle">
+              <el-icon >
                 <office-building />
               </el-icon>
               Address

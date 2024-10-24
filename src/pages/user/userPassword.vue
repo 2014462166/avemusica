@@ -73,7 +73,7 @@ let confirmPassword = ref('')
       <el-card class="change-password-card">
         <h2>修改密码</h2>
         <el-form   label-width="120px" class="change-password-form">
-          <el-form-item label="老密码" >
+          <el-form-item label="旧密码" >
             <el-input v-model="oldPassword" type="password" placeholder="请输入老密码" />
           </el-form-item>
 

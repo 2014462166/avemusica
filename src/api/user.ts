@@ -17,7 +17,8 @@ type UpdateInfo ={
     telephone:string,
     sex:string,
     nickname:string,
-    address:string
+    address:string,
+    imgURL:string,
 }
 type RegisterInfo={
     username:string,
