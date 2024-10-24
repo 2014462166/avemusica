@@ -51,4 +51,13 @@ const router = createRouter({
         }
     ]
 })
+//导航守卫
+router.beforeEach((to,from,next)=>{
+    if(to.path=='/login') return next();
+    if(to.path=='/register') return next();
+    const tokenStr = sessionStorage.getItem('token')
+    if(!tokenStr) return next('/login')
+    next()
+})
+
 export {router};
