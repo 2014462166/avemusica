@@ -156,12 +156,11 @@ onMounted(()=>{
 
           <el-form >
 
-            <el-form-item label="头像">
+            <el-form-item label="头像" :label-width="formLabelWidth">
               <el-upload
                   v-model:file-list="imageFileList"
                   :limit="1"
                   :on-exceed="handleExceed"
-                  class="upload-demo input"
                   list-type="picture"
                   :http-request="uploadHttpRequest"
                   drag

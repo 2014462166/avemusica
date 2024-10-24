@@ -1,40 +1,46 @@
 <script setup>
 import mySidebar from "../../components/sidebar/mysidebar.vue"
-import { ref } from 'vue';
-import { ElMessage } from 'element-plus';
-import img_URL from '@/assets/fulilian.jpg'
-import {router} from "@/router/index.ts";
+import {ref,onMounted} from 'vue';
+import {ElMessage} from 'element-plus';
 
-let username = ref("ThUndertaker")
+import {router} from "@/router/index.ts";
+import {userInfo} from "@/api/user.ts";
+
+let nickname = ref("")
 let followers = ref(100)
 let following = ref(260)
+let avatarUrl = ref('')
 
+const activities = ref([
+  {id: 1, description: '发布了新视频', date: '2024-10-12'},
+  {id: 2, description: '评论了视频', date: '2024-10-10'},
+]);
 
+const editProfile = () => {
 
+  router.push({path: "/user/information"})
+  // 编辑资料的逻辑
+  //ElMessage.success('编辑资料功能尚未实现');
+};
 
+const changePassword = () => {
+  router.push({path: "/user/changePassword"});
+};
 
-    const activities = ref([
-      { id: 1, description: '发布了新视频', date: '2024-10-12' },
-      { id: 2, description: '评论了视频', date: '2024-10-10' },
-    ]);
+const viewFavorites = () => {
+  // 查看收藏的逻辑
+  ElMessage.success('查看收藏功能尚未实现');
+};
 
-    const editProfile = () => {
-
-      router.push({path:"/user/information"})
-      // 编辑资料的逻辑
-      //ElMessage.success('编辑资料功能尚未实现');
-    };
-
-    const changePassword=()=>{
-      router.push({path:"/user/changePassword"});
-    };
-
-    const viewFavorites = () => {
-      // 查看收藏的逻辑
-      ElMessage.success('查看收藏功能尚未实现');
-    };
-
-
+function getUserInfo() {
+  userInfo().then(res => {
+    nickname.value = res.data.result.nickname;
+    avatarUrl.value = res.data.result.imgURL
+  })
+}
+onMounted(()=>{
+  getUserInfo()
+})
 
 
 </script>
@@ -46,10 +52,10 @@ let following = ref(260)
       <div class="profile-container">
         <el-card class="profile-card">
           <div slot="header" class="card-header">
-           <el-avatar :src=img_URL  :fit="'fill'" :size="80"/>
+            <el-avatar :src=avatarUrl :fit="'fill'" :size="80"/>
             <div class="user-info">
-              <h2>{{ username }}</h2>
-              <p>粉丝: {{ followers }}  |  关注: {{ following }}</p>
+              <h2>{{ nickname }}</h2>
+              <p>粉丝: {{ followers }} | 关注: {{ following }}</p>
             </div>
           </div>
           <div style="margin-top: 10px" class="card-body">
