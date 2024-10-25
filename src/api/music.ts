@@ -1,6 +1,14 @@
 import {MUSIC_MODULE} from "./_prefix";
 import {axios} from "../utils/request"
-type MusicInfo={
+export type MusicInfo={
+    musicName:string,
+    username:string,
+    author:string,
+    description:string,
+    musicUrl:string,
+}
+export type MusicsInfo={
+    id:string,
     musicName:string,
     username:string,
     author:string,
@@ -26,4 +34,15 @@ export const UpdateMusicInfo = async (musicInfo:MusicInfo)=>{
         .then(res=>{
             return res;
         })
+};
+
+//获取音乐列表
+export const musicsPageInfo = async (page: number, size: number) => {
+    return axios.get(`${MUSIC_MODULE}`, {params: {page: page, size: size}})
+        .then(res => {
+            return res;
+        })
+        .catch(err => {
+            return err.response;
+        });
 };
