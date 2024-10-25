@@ -110,7 +110,7 @@ const handleClose = (done) => {
   if (loading.value) {
     return
   }
-  ElMessageBox.confirm('Do you want to submit?')
+  ElMessageBox.confirm('你确定要提交吗？')
       .then(() => {
         loading.value = true
         timer = setTimeout(() => {
@@ -205,9 +205,9 @@ onMounted(()=>{
             </el-form-item>
           </el-form>
           <div class="demo-drawer__footer">
-            <el-button @click="cancelForm">Cancel</el-button>
+            <el-button @click="cancelForm">取消</el-button>
             <el-button   type="primary" :loading="loading" @click="onClick">
-              {{ loading ? 'Submitting ...' : 'Submit' }}
+              {{ loading ? '提交中...' : '提交' }}
             </el-button>
           </div>
         </div>
@@ -225,7 +225,7 @@ onMounted(()=>{
               <el-icon >
                 <user/>
               </el-icon>
-              Username
+              用户名
             </div>
           </template>
           {{ username }}
@@ -237,7 +237,7 @@ onMounted(()=>{
               <el-icon >
                 <iphone />
               </el-icon>
-              Telephone
+              电话
             </div>
           </template>
           {{ telephone }}
@@ -249,7 +249,7 @@ onMounted(()=>{
               <el-icon >
                 <user/>
               </el-icon>
-              Nickname
+              昵称
             </div>
           </template>
           {{ nickname }}
@@ -261,7 +261,7 @@ onMounted(()=>{
               <el-icon >
                 <user/>
               </el-icon>
-              sex
+              性别
             </div>
           </template>
           <el-icon >
@@ -279,7 +279,7 @@ onMounted(()=>{
               <el-icon >
                 <office-building />
               </el-icon>
-              Address
+              地址
             </div>
           </template>
           {{ address }}

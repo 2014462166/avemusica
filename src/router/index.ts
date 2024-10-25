@@ -15,6 +15,8 @@ import userInfo from "../pages/user/userInfo.vue"
 import concern from "../pages/concern.vue"
 // @ts-ignore
 import userPassword from "../pages/user/userPassword.vue"
+// @ts-ignore
+import addMusic from "../pages/music/addMusic.vue"
 const router = createRouter({
     history: createWebHistory(),
     routes:[
@@ -54,6 +56,10 @@ const router = createRouter({
         {
             path:'/user/changePassword',
             component:userPassword,
+        },
+        {
+            path:'/musics/addMusic',
+            component:addMusic,
         }
     ]
 })

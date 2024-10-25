@@ -1,6 +1,8 @@
 <script setup>
 import mySidebar from "../../components/sidebar/mysidebar.vue"
 import {onMounted} from "vue";
+import Myheader from "@/components/header/myheader.vue";
+import {router} from "@/router/index.ts";
 
 
 const musics = [{
@@ -23,6 +25,11 @@ const musics = [{
 //   music.value = await response.json();
 // }
 
+function addMusic()
+{
+  router.push({path:"/musics/addMusic"})
+}
+
 
 onMounted(() => {
   //console.log(musics);
@@ -32,7 +39,11 @@ onMounted(() => {
 
 <template>
   <el-container>
-    <my-sidebar/>
+    <el-header class="header">
+      <el-button type="primary" @click="addMusic">添加音乐</el-button>
+    </el-header>
+    <el-container>
+      <my-sidebar/>
     <el-main>
       <el-row :gutter="20">
         <el-col :span="12">
@@ -78,6 +89,7 @@ onMounted(() => {
         </el-col>
       </el-row>
     </el-main>
+    </el-container>
   </el-container>
 
 
@@ -87,5 +99,8 @@ onMounted(() => {
 
 .music-info {
   margin-top: 10px;
+}
+.header{
+  background-color: lightskyblue;
 }
 </style>
