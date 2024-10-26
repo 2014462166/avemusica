@@ -12,7 +12,7 @@ import community from "../pages/community/community.vue"
 // @ts-ignore
 import userInfo from "../pages/user/userInfo.vue"
 // @ts-ignore
-import concern from "../pages/concern.vue"
+import concern from "../pages/concern/concern.vue"
 // @ts-ignore
 import userPassword from "../pages/user/userPassword.vue"
 // @ts-ignore

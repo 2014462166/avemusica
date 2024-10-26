@@ -1,7 +1,10 @@
-<script setup>
-import {ref} from 'vue';
+<script setup lang="ts">
+import {ref,onMounted} from 'vue';
+import {userInfo} from "@/api/user.ts";
 
 let isCollapsed = ref(false);
+let nickname =ref("")
+let avatarUrl = ref("")
 
 const toggleCollapse = () => {
   isCollapsed.value = !isCollapsed.value;
@@ -14,6 +17,17 @@ const handleOpen = (key, keyPath) => {
 const handleClose = (key, keyPath) => {
   console.log('Closed menu item:', key, keyPath);
 };
+
+function getUserInfo() {
+  userInfo().then(res => {
+    nickname.value = res.data.result.nickname;
+    avatarUrl.value = res.data.result.imgURL;
+  })
+}
+
+onMounted(()=>{
+  getUserInfo();
+})
 </script>
 
 
@@ -21,7 +35,6 @@ const handleClose = (key, keyPath) => {
   <el-aside :width="isCollapsed ? '0px' : '200px'" class="sidebar">
     <el-menu
         router
-
         :collapse="isCollapsed"
         default-active="1"
         @open="handleOpen"
@@ -32,8 +45,14 @@ const handleClose = (key, keyPath) => {
       <el-menu-item index="/concern">关注</el-menu-item>
       <el-menu-item  index="/user">我的</el-menu-item>
 
-
     </el-menu>
+    <el-avatar style="position: relative;top: 40%;left: 30%" :size="80"  :src="avatarUrl"/>
+    <h1 style="position: relative;top: 40%;text-align: center">
+     <span class="title"
+           style="font-size:26px;
+           font-family:'Vladimir Script',serif ">  {{ nickname }}   </span>
+    </h1>
+
     <el-button style="bottom: 20px;position: fixed" @click="toggleCollapse" class="collapse-button">
       {{ isCollapsed ? '展开' : '收起' }}
     </el-button>

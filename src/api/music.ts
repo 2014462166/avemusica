@@ -6,6 +6,7 @@ export type MusicInfo={
     author:string,
     description:string,
     musicUrl:string,
+    imgUrl:string
 }
 export type MusicsInfo={
     id:string,
@@ -14,6 +15,7 @@ export type MusicsInfo={
     author:string,
     description:string,
     musicUrl:string,
+    imgUrl:string
 }
 
 // 上传音乐文件

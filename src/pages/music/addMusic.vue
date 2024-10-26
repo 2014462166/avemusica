@@ -5,7 +5,7 @@ import Mysidebar from "@/components/sidebar/mysidebar.vue";
 import {ElMessage} from "element-plus";
 import {ref} from "vue";
 import {uploadImage} from "@/api/tool.ts";
-import {UpdateUserInfo} from "@/api/user.ts";
+import {UpdateUserInfo, userInfo} from "@/api/user.ts";
 import {UpdateMusicInfo, uploadMusic} from "@/api/music.ts";
 import {router} from "@/router/index.ts";
 
@@ -14,12 +14,12 @@ import {router} from "@/router/index.ts";
 let musicName = ref("")
 let author = ref("")
 let description = ref("")
-
+let username =ref("")
 let avatarUrl = ref("")
 const dialog = ref(false)
 const loading = ref(false)
-// 存返回的imgUrl
-const imgURLs = ref([] );
+// 存返回的Url
+const musicURLs = ref([] );
 let timer
 
 
@@ -52,17 +52,21 @@ const cancelForm = () => {
 //提交信息
 function updateInfo()
 {
+  userInfo().then(res=>{
+    avatarUrl.value = res.data.result.imgUrl;
+  })
   UpdateMusicInfo({
     musicName:musicName.value,
     description:description.value,
     author:author.value,
-    username:"",
-    musicUrl:imgURLs.value[0]
+    username:username.value,
+    musicUrl:musicURLs.value[0],
+    imgUrl:avatarUrl.value
   })
       .then(res=>{
         if (res.data.code === '000') {
           ElMessage({
-            message: "修改成功",
+            message: "上传成功",
             type: 'success',
             center: true,
           })
@@ -81,7 +85,7 @@ async function loopUpload() {
     let formData = new FormData();
     formData.append('file', music.raw);
     const res = await uploadMusic(formData);
-    imgURLs.value.push(res.data.result);
+    musicURLs.value.push(res.data.result);
   }
 }
 

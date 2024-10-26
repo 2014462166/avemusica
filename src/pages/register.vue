@@ -32,7 +32,7 @@ function handleRegister() {
     nickname:nickname.value,
     address:address.value,
     telephone:telephone.value,
-    sex:sex.value
+    sex:sex.value,
   }).then(res => {
     if (res.data.code === '000') {
       ElMessage({
