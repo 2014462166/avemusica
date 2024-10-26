@@ -56,9 +56,10 @@ export default {
 
 <style scoped>
 .concern-list {
-  width: 200px; /* 可以根据需要调整宽度 */
+  width: 200px;
   padding: 10px;
   border-right: 1px solid #e0e0e0;
+  overflow-y: auto;
 }
 
 .concern-item {
@@ -75,6 +76,6 @@ export default {
 }
 
 .username {
-  font-size: 16px; /* 用户名字体大小 */
+  font-size: 16px;
 }
 </style>
