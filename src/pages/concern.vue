@@ -5,11 +5,18 @@ import { getConcernList } from "../api/concern.ts";
 export default {
   data() {
     return {
-      concernList: [{
-        id: 1,
-        image_path: "src/assets/kaoru.jpg",
-        name: "shiroko"
-      }]
+      concernList: [
+        {
+          id: 1,
+          image_path: "src/assets/kaoru.jpg",
+          name: "shiroko"
+        },
+        {
+          id: 1,
+          image_path: "src/assets/kaoru.jpg",
+          name: "shiroko"
+        },
+      ]
     };
   },
   components: {
@@ -57,7 +64,7 @@ export default {
 .concern-item {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-top: 20px;
 }
 
 .avatar {
