@@ -47,21 +47,30 @@ onMounted(()=>{
 
 <template>
   <el-container>
-    <my-sidebar/>
+    <my-sidebar />
     <el-main>
       <div class="profile-container">
         <el-card class="profile-card">
           <div slot="header" class="card-header">
-            <el-avatar :src=avatarUrl :fit="'fill'" :size="80"/>
+            <el-avatar :src="avatarUrl" :fit="'fill'" :size="80" />
             <div class="user-info">
               <h2>{{ nickname }}</h2>
               <p>粉丝: {{ followers }} | 关注: {{ following }}</p>
             </div>
           </div>
           <div style="margin-top: 10px" class="card-body">
-            <el-button type="primary" @click="editProfile">编辑资料</el-button>
-            <el-button type="primary" @click="changePassword">修改密码</el-button>
-            <el-button type="primary" @click="viewFavorites">查看收藏</el-button>
+            <div class="icon-button" @click="editProfile">
+              <el-icon :size="20"><edit /></el-icon>
+              <span>编辑资料</span>
+            </div>
+            <div class="icon-button" @click="changePassword">
+              <el-icon :size="20"><lock /></el-icon>
+              <span>修改密码</span>
+            </div>
+            <div class="icon-button" @click="viewFavorites">
+              <el-icon :size="20"><star /></el-icon>
+              <span>查看收藏</span>
+            </div>
           </div>
         </el-card>
         <el-card class="recent-activities" v-if="activities.length">
@@ -92,11 +101,25 @@ onMounted(()=>{
 
 .card-header {
   display: flex;
+  margin-left: 10px;
   align-items: center;
 }
 
 .user-info {
-  margin-left: 20px;
+  margin-left: 40px;
+}
+
+.card-body {
+  display: flex;
+  justify-content: space-around; /* 平均分配按钮之间的空间 */
+  margin-top: 10px;
+}
+
+.icon-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
 }
 
 .recent-activities {

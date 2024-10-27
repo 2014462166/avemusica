@@ -137,12 +137,6 @@ onMounted(()=>{
     <my-sidebar/>
     <el-main>
       <el-avatar :src="avatarUrl"  :fit="'fill'" :size="80"/>
-      <el-button color="#39C5BB"  @click="dialog=true" round >
-        <el-text style="color: white">编辑信息</el-text>
-        <el-icon color="white">
-          <Edit/>
-        </el-icon>
-      </el-button>
 
       <el-drawer
         v-model="dialog"
@@ -173,7 +167,6 @@ onMounted(()=>{
                 </div>
               </el-upload>
             </el-form-item>
-
 
 
 
@@ -212,7 +205,6 @@ onMounted(()=>{
           </div>
         </div>
       </el-drawer>
-
 
 
 
@@ -287,6 +279,12 @@ onMounted(()=>{
 
 
       </el-descriptions>
+      <el-button color="#39C5BB"  @click="dialog=true" round class="edit-button">
+        <el-text style="color: white">编辑信息</el-text>
+        <el-icon color="white" :size="20">
+          <Edit/>
+        </el-icon>
+      </el-button>
     </el-main>
   </el-container>
 
@@ -296,6 +294,10 @@ onMounted(()=>{
 .cell-item {
   display: flex;
   align-items: center;
+}
+
+.edit-button{
+  margin-top: 20px;
 }
 
 </style>
