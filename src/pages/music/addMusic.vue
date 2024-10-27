@@ -61,7 +61,8 @@ function updateInfo()
     author:author.value,
     username:username.value,
     musicUrl:musicURLs.value[0],
-    imgUrl:avatarUrl.value
+    imgUrl:avatarUrl.value,
+    createTime:''
   })
       .then(res=>{
         if (res.data.code === '000') {
