@@ -47,7 +47,6 @@ onMounted(()=>{
 
 <template>
   <el-container>
-    <my-sidebar />
     <el-main>
       <div class="profile-container">
         <el-card class="profile-card">

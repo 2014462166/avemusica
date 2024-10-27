@@ -13,7 +13,7 @@ import img_URL from "@/assets/fulilian.jpg";
 import {UpdateUserInfo, userInfo} from "@/api/user.ts";
 import {router} from "@/router/index.ts";
 import {uploadImage} from "@/api/tool.ts";
-
+import Header from "../../components/header/myheader.vue"
 
 
 let username = ref("")
@@ -134,7 +134,6 @@ onMounted(()=>{
 
 <template>
   <el-container>
-    <my-sidebar/>
     <el-main>
       <el-avatar :src="avatarUrl"  :fit="'fill'" :size="80"/>
 

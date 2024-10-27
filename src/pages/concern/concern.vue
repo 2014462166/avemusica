@@ -1,39 +1,54 @@
-<script setup lang="ts">
-import { ref } from 'vue';
-import Mysidebar from "@/components/sidebar/mysidebar.vue";
+<script>
+import mySidebar from "../../components/sidebar/mysidebar.vue";
+import { getConcernList } from "../../api/concern.ts";
+import Header from "../../components/header/myheader.vue"
 
-const users = ref([
-  { name: '用户1', avatar: 'https://via.placeholder.com/100' },
-  { name: '用户2', avatar: 'https://via.placeholder.com/100' },
-  { name: '用户3', avatar: 'https://via.placeholder.com/100' },
-  { name: '用户4', avatar: 'https://via.placeholder.com/100' },
-  { name: '用户5', avatar: 'https://via.placeholder.com/100' },
-  { name: '用户6', avatar: 'https://via.placeholder.com/100' },
-  { name: '用户7', avatar: 'https://via.placeholder.com/100' },
-  { name: '用户8', avatar: 'https://via.placeholder.com/100' },
-  { name: '用户9', avatar: 'https://via.placeholder.com/100' },
-  { name: '用户10', avatar: 'https://via.placeholder.com/100' },
-  { name: '用户10', avatar: 'https://via.placeholder.com/100' },
-  { name: '用户wgwg10', avatar: 'https://via.placeholder.com/100' },
-  { name: '用wegw户10', avatar: 'https://via.placeholder.com/100' },
-  { name: '用q户10', avatar: 'https://via.placeholder.com/100' },
-  { name: '用户ewt10', avatar: 'https://via.placeholder.com/100' },
-  { name: '用户wet10', avatar: 'https://via.placeholder.com/100' },
-  { name: '用户qwe10', avatar: 'https://via.placeholder.com/100' },
-  { name: '用户qweqw10', avatar: 'https://via.placeholder.com/100' },
-]);
+export default {
+  data() {
+    return {
+      concernList: [
+        {
+          id: 1,
+          image_path: "src/assets/kaoru.jpg",
+          name: "shiroko"
+        },
+        {
+          id: 1,
+          image_path: "src/assets/kaoru.jpg",
+          name: "shiroko"
+        },
+      ]
+    };
+  },
+  components: {
+    mySidebar,
+    Header
+  },
+  methods: {
+    initConcernList() {
+      getConcernList({}).then(res => {
+        this.concernList = res.data;
+      });
+    },
+    clickConcernedUser(id){
+      console.log(id)
+      //TODO
+    }
+  },
+  created() {
+    //this.initConcernList();
+  }
+}
 </script>
 
 <template>
   <el-container>
-    <mysidebar/>
     <el-main>
-      <div class="follow-page">
-        <div class="follow-list">
-          <el-card v-for="(user, index) in users" :key="index" class="user-card">
-            <img :src="user.avatar" alt="User Avatar" class="user-avatar" />
-            <div class="user-name">{{ user.name }}</div>
-          </el-card>
+      <div class="concern-list">
+        <h2>关注列表</h2>
+        <div v-for="concern in concernList" :key="concern.id" class="concern-item" @click="clickConcernedUser(concern.id)">
+          <el-image :src="concern.image_path" alt="用户头像" class="avatar"></el-image>
+          <span class="username">{{ concern.name }}</span>
         </div>
       </div>
     </el-main>
@@ -41,33 +56,27 @@ const users = ref([
 </template>
 
 <style scoped>
-.follow-page {
-  padding: 20px;
+.concern-list {
+  width: 200px;
+  padding: 10px;
+  border-right: 1px solid #e0e0e0;
+  overflow-y: auto;
 }
 
-.follow-list {
+.concern-item {
   display: flex;
-  overflow-x: auto;
-  padding: 10px 0;
-  scroll-behavior: smooth; /* Optional: smooth scrolling */
+  align-items: center;
+  margin-top: 20px;
 }
 
-.user-card {
+.avatar {
+  width: 40px; /* 头像宽度 */
+  height: 40px; /* 头像高度 */
+  border-radius: 50%; /* 圆形头像 */
   margin-right: 10px;
-  width: 100px; /* Fixed width for each card */
-  text-align: center;
-  border: 1px solid #eaeaea;
-  border-radius: 8px;
-  flex-shrink: 0; /* Prevent cards from shrinking */
 }
 
-.user-avatar {
-  width: 100%;
-  border-radius: 50%;
-}
-
-.user-name {
-  margin-top: 5px;
-  font-size: 14px;
+.username {
+  font-size: 16px;
 }
 </style>

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import mySidebar from "../../components/sidebar/mysidebar.vue"
 import { onMounted, ref } from "vue";
-import Myheader from "@/components/header/myheader.vue";
 import { router } from "@/router/index.ts";
 import { musicsPageInfo, MusicsInfo } from "@/api/music.ts";
 import { userInfo } from "@/api/user";
+import Header from "../../components/header/myheader.vue"
 
 const musicList = ref([] as MusicsInfo[]);
 const currentPage = ref(1);
@@ -70,11 +70,7 @@ function handleAudioPlay(audioElement: HTMLAudioElement) {
 
 <template>
   <el-container>
-    <el-header class="header">
-      <el-button type="primary" @click="addMusic">添加音乐</el-button>
-    </el-header>
     <el-container>
-      <my-sidebar />
       <el-main>
         <el-row :gutter="20">
           <el-col :span="12">
@@ -126,7 +122,7 @@ function handleAudioPlay(audioElement: HTMLAudioElement) {
 
 <style scoped>
 .header {
-  background-color: lightskyblue;
+  background-color: #409eff;
 }
 el-header {
   background-color: #4A90E2;

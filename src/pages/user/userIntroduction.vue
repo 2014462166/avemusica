@@ -19,12 +19,7 @@ onMounted(()=>{
 
 <template>
   <el-container>
-    <mysidebar>
-      <el-main>
-        {{username}}7777777777777668867867878686867868
 
-      </el-main>
-    </mysidebar>
   </el-container>
 </template>
 

@@ -54,21 +54,10 @@ let confirmPassword = ref('')
 
 
 
-
-
-
-
-
-
-
-
-
-
 </script>
 
 <template>
   <el-container>
-    <mysidebar/>
     <el-main>
       <el-card class="change-password-card">
         <h2>修改密码</h2>

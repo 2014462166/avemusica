@@ -4,7 +4,6 @@ import mySidebar from "../../components/sidebar/mysidebar.vue"
 
 <template>
   <el-container>
-    <my-sidebar/>
     <el-main>
 
 
