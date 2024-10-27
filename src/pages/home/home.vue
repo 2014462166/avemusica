@@ -87,7 +87,7 @@ function handleAudioPlay(audioElement: HTMLAudioElement) {
           <el-col :span="12">
             <el-carousel type="card">
               <el-carousel-item v-for="music in musics" :key="music.id">
-                <el-image style="width: 100%; height: 100%; border-radius: 6px" :src="music.img" :fit="'cover'" />
+                  <el-image style="width: 100%; height: 100%; border-radius: 6px" :src="music.img" :fit="'cover'" />
               </el-carousel-item>
             </el-carousel>
           </el-col>
@@ -98,7 +98,9 @@ function handleAudioPlay(audioElement: HTMLAudioElement) {
             <el-card style="width: 100%">
               <el-row>
                 <el-col :span="8">
-                  <el-image style="width: 50%; height: 100px; border-radius: 6px" :src="music.imgUrl" :fit="'cover'" />
+                  <router-link :to="{path:'/user/userIntroduction',query:{username:music.username}}">
+                    <el-image style="width: 50%; height: 100px; border-radius: 6px" :src="music.imgUrl" :fit="'cover'" />
+                  </router-link>
                 </el-col>
                 <el-col :span="16">
                   <div class="music-info">

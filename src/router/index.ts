@@ -17,6 +17,8 @@ import concern from "../pages/concern/concern.vue"
 import userPassword from "../pages/user/userPassword.vue"
 // @ts-ignore
 import addMusic from "../pages/music/addMusic.vue"
+// @ts-ignore
+import userIntroduction from "../pages/user/userIntroduction.vue"
 const router = createRouter({
     history: createWebHistory(),
     routes:[
@@ -60,6 +62,11 @@ const router = createRouter({
         {
             path:'/musics/addMusic',
             component:addMusic,
+        },
+        {
+            path:'/user/userIntroduction',
+            component:userIntroduction,
+            name:"userIntroduction"
         }
     ]
 })
