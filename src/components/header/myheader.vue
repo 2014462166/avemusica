@@ -30,7 +30,7 @@ function logout() {
   <el-header class="custom-header">
     <el-row :gutter="10" align="middle">
       <el-col :span="4" class="header-text">
-        <h1 @click="router.push({path: '/home'})">avemusica</h1>
+        <h1 style="font-family:'Vladimir Script',serif " @click="router.push({path: '/home'} )">AveMusica</h1>
       </el-col>
 
       <el-col :span="2"></el-col>
@@ -74,9 +74,9 @@ function logout() {
 
 .header-text {
   color: white;
-  font-size: x-large;
+  font-size: xx-large;
   text-align: left;
-  margin-left: 10px;
+  margin-left: 20px;
 }
 
 .search-container {

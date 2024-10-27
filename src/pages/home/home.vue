@@ -1,10 +1,10 @@
+
 <script setup lang="ts">
 import mySidebar from "../../components/sidebar/mysidebar.vue";
-import { onMounted, ref, computed } from "vue";
+import { onMounted, ref } from "vue";
 import { router } from "@/router/index.ts";
 import { musicsPageInfo, MusicsInfo } from "@/api/music.ts";
 import { userInfo } from "@/api/user";
-import Header from "../../components/header/myheader.vue";
 
 const musicList = ref([] as MusicsInfo[]);
 const currentPage = ref(1);
@@ -13,31 +13,33 @@ const totalItems = ref(0);
 const username = ref("");
 const playingAudio = ref<HTMLAudioElement | null>(null); // 用于存储当前播放的音频
 
-const musics = [{
-  id: 1,
-  music: "../assets/music1.mp3",
-  img: "https://tse4-mm.cn.bing.net/th/id/OIP-C.EFicPtAHO163Ohcxg1G-mAHaJM?w=148&h=184&c=7&r=0&o=5&dpr=1.5&pid=1.7",
-  title: "MerryChristmas",
-  author: "坂本龙一",
-}, {
-  id: 2,
-  music: "../assets/Avid.mp3",
-  img: "https://tse1-mm.cn.bing.net/th/id/OIP-C.Wc82Jp8UNmu8z3cgFNZJigAAAA?w=186&h=186&c=7&r=0&o=5&dpr=1.5&pid=1.7",
-  title: "Avid",
-  author: "泽野弘之"
-}];
+const musics = [
+  {
+    id: 1,
+    music: "../assets/music1.mp3",
+    img: "https://tse4-mm.cn.bing.net/th/id/OIP-C.EFicPtAHO163Ohcxg1G-mAHaJM?w=148&h=184&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+    title: "Merry Christmas",
+    author: "坂本龙一",
+  },
+  {
+    id: 2,
+    music: "../assets/Avid.mp3",
+    img: "https://tse1-mm.cn.bing.net/th/id/OIP-C.Wc82Jp8UNmu8z3cgFNZJigAAAA?w=186&h=186&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+    title: "Avid",
+    author: "泽野弘之",
+  },
+];
 
 function loadMusics(page) {
   musicsPageInfo(page - 1, pageSize.value).then(res => {
     totalItems.value = res.data.result.totalElements;
     musicList.value = res.data.result.content;
-    console.log(res.data.result.content)
+    console.log(res.data.result.content);
   });
 }
 
 function handlePageChange(page) {
   currentPage.value = page;
-  console.log(page,pageSize.value)
   loadMusics(currentPage.value);
 }
 
@@ -68,9 +70,8 @@ function handleAudioPlay(audioElement: HTMLAudioElement) {
   }
   playingAudio.value = audioElement; // 更新当前播放的音频
 }
-
-
 </script>
+
 
 <template>
   <el-container>
@@ -92,12 +93,12 @@ function handleAudioPlay(audioElement: HTMLAudioElement) {
         </el-col>
       </el-row>
 
-      <el-row :gutter="20">
+      <el-row :gutter="20" class="music-list">
         <el-col :span="12" v-for="music in musicList" :key="music.id">
           <el-card style="width: 100%">
             <el-row>
               <el-col :span="8">
-                <router-link :to="{path:'/user/userIntroduction',query:{username:music.username}}">
+                <router-link :to="{ path: '/user/userIntroduction', query: { username: music.username } }">
                   <el-image style="width: 50%; height: 100px; border-radius: 6px" :src="music.imgUrl" :fit="'cover'" />
                 </router-link>
               </el-col>
@@ -175,5 +176,11 @@ audio {
 }
 el-col {
   margin-bottom: 20px;
+}
+
+/* New styles for scrolling */
+.music-list {
+  max-height: 500px; /* Adjust height as needed */
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 </style>
