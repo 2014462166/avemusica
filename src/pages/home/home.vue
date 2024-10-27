@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import mySidebar from "../../components/sidebar/mysidebar.vue"
-import { onMounted, ref } from "vue";
+import mySidebar from "../../components/sidebar/mysidebar.vue";
+import { onMounted, ref, computed } from "vue";
 import { router } from "@/router/index.ts";
 import { musicsPageInfo, MusicsInfo } from "@/api/music.ts";
 import { userInfo } from "@/api/user";
-import Header from "../../components/header/myheader.vue"
+import Header from "../../components/header/myheader.vue";
 
 const musicList = ref([] as MusicsInfo[]);
 const currentPage = ref(1);
-const pageSize = ref(5);
+const pageSize = ref(2);
 const totalItems = ref(0);
 const username = ref("");
 const playingAudio = ref<HTMLAudioElement | null>(null); // 用于存储当前播放的音频
@@ -31,12 +31,14 @@ function loadMusics(page) {
   musicsPageInfo(page - 1, pageSize.value).then(res => {
     totalItems.value = res.data.result.totalElements;
     musicList.value = res.data.result.content;
+    console.log(res.data.result.content)
   });
 }
 
 function handlePageChange(page) {
   currentPage.value = page;
-  loadMusics(page);
+  console.log(page,pageSize.value)
+  loadMusics(currentPage.value);
 }
 
 function handleSizeChange(newSize) {
@@ -66,57 +68,69 @@ function handleAudioPlay(audioElement: HTMLAudioElement) {
   }
   playingAudio.value = audioElement; // 更新当前播放的音频
 }
+
+
 </script>
 
 <template>
   <el-container>
-    <el-container>
-      <el-main>
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-carousel type="card">
-              <el-carousel-item v-for="music in musics" :key="music.id">
-                <el-image style="width: 100%; height: 100%; border-radius: 6px" :src="music.img" :fit="'cover'" />
-              </el-carousel-item>
-            </el-carousel>
-          </el-col>
-          <el-col :span="12">
-            <el-carousel type="card">
-              <el-carousel-item v-for="music in musics" :key="music.id">
-                  <el-image style="width: 100%; height: 100%; border-radius: 6px" :src="music.img" :fit="'cover'" />
-              </el-carousel-item>
-            </el-carousel>
-          </el-col>
-        </el-row>
+    <el-main>
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-carousel type="card">
+            <el-carousel-item v-for="music in musics" :key="music.id">
+              <el-image style="width: 100%; height: 100%; border-radius: 6px" :src="music.img" :fit="'cover'" />
+            </el-carousel-item>
+          </el-carousel>
+        </el-col>
+        <el-col :span="12">
+          <el-carousel type="card">
+            <el-carousel-item v-for="music in musics" :key="music.id">
+              <el-image style="width: 100%; height: 100%; border-radius: 6px" :src="music.img" :fit="'cover'" />
+            </el-carousel-item>
+          </el-carousel>
+        </el-col>
+      </el-row>
 
-        <el-row :gutter="20">
-          <el-col :span="12" v-for="music in musicList" :key="music.id">
-            <el-card style="width: 100%">
-              <el-row>
-                <el-col :span="8">
-                  <router-link :to="{path:'/user/userIntroduction',query:{username:music.username}}">
-                    <el-image style="width: 50%; height: 100px; border-radius: 6px" :src="music.imgUrl" :fit="'cover'" />
-                  </router-link>
-                </el-col>
-                <el-col :span="16">
-                  <div class="music-info">
-                    <h2>{{ music.musicName }}</h2>
-                    <h4>{{ music.description }}</h4>
-                    <audio
-                        controls
-                        style="width: 100%"
-                        @play="handleAudioPlay($event.target)"
-                    >
-                      <source :src="music.musicUrl" />
-                    </audio>
-                  </div>
-                </el-col>
-              </el-row>
-            </el-card>
-          </el-col>
-        </el-row>
-      </el-main>
-    </el-container>
+      <el-row :gutter="20">
+        <el-col :span="12" v-for="music in musicList" :key="music.id">
+          <el-card style="width: 100%">
+            <el-row>
+              <el-col :span="8">
+                <router-link :to="{path:'/user/userIntroduction',query:{username:music.username}}">
+                  <el-image style="width: 50%; height: 100px; border-radius: 6px" :src="music.imgUrl" :fit="'cover'" />
+                </router-link>
+              </el-col>
+              <el-col :span="16">
+                <div class="music-info">
+                  <h2>{{ music.musicName }}</h2>
+                  <h4>{{ music.description }}</h4>
+                  <audio
+                      controls
+                      style="width: 100%"
+                      @play="handleAudioPlay($event.target)"
+                  >
+                    <source :src="music.musicUrl" />
+                  </audio>
+                </div>
+              </el-col>
+            </el-row>
+          </el-card>
+        </el-col>
+      </el-row>
+
+      <!-- Pagination Controls -->
+      <el-pagination
+          background
+          layout="total, prev, pager, next, sizes"
+          :total="totalItems"
+          :page-size="pageSize"
+          :current-page="currentPage"
+          @current-change="handlePageChange"
+          @size-change="handleSizeChange"
+          :page-sizes="[5, 10, 20]"
+      />
+    </el-main>
   </el-container>
 </template>
 

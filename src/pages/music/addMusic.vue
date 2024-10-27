@@ -94,7 +94,6 @@ async function loopUpload() {
 
 <template>
   <el-container>
-    <mysidebar/>
     <el-main>
       <div class="div">
         <el-form >
