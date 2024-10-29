@@ -1,4 +1,4 @@
-import {USER_MODULE} from "./_prefix";
+import {MUSIC_MODULE, USER_MODULE} from "./_prefix";
  import {axios} from "../utils/request"
 
 import {ref} from "vue";
@@ -12,6 +12,8 @@ type UpdatePassword = {
     oldPassword:string,
     newPassword:string,
 }
+
+
 type UpdateInfo ={
     username:string,
     telephone:string,
@@ -77,3 +79,14 @@ export const UpdateUserPassword = async (updatePassword :UpdatePassword)=>{
             return res;
         })
 }
+
+
+export const getConcernInfo  = async (username: string) => {
+    return axios.get(`${USER_MODULE}/getConcernInfo`, {params: {username: username}})
+        .then(res => {
+            return res;
+        })
+        .catch(err => {
+            return err.response;
+        });
+};

@@ -17,6 +17,36 @@ export default {
           image_path: "src/assets/kaoru.jpg",
           name: "shiroko"
         },
+        {
+          id: 1,
+          image_path: "src/assets/kaoru.jpg",
+          name: "shiroko"
+        },
+        {
+          id: 1,
+          image_path: "src/assets/kaoru.jpg",
+          name: "shiroko"
+        },
+        {
+          id: 1,
+          image_path: "src/assets/kaoru.jpg",
+          name: "shiroko"
+        },
+        {
+          id: 1,
+          image_path: "src/assets/kaoru.jpg",
+          name: "shiroko"
+        },
+        {
+          id: 1,
+          image_path: "src/assets/kaoru.jpg",
+          name: "shiroko"
+        },
+        {
+          id: 1,
+          image_path: "src/assets/kaoru.jpg",
+          name: "shiroko"
+        },
       ]
     };
   },

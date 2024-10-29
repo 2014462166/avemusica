@@ -8,7 +8,7 @@ import { userInfo } from "@/api/user";
 
 const musicList = ref([] as MusicsInfo[]);
 const currentPage = ref(1);
-const pageSize = ref(2);
+const pageSize = ref(4);
 const totalItems = ref(0);
 const username = ref("");
 const playingAudio = ref<HTMLAudioElement | null>(null); // 用于存储当前播放的音频
