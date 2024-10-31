@@ -1,74 +1,26 @@
-<script>
+<script setup lang="ts">
 import mySidebar from "../../components/sidebar/mysidebar.vue";
-import { getConcernList } from "../../api/concern.ts";
-import Header from "../../components/header/myheader.vue"
 
-export default {
-  data() {
-    return {
-      concernList: [
-        {
-          id: 1,
-          image_path: "src/assets/kaoru.jpg",
-          name: "shiroko"
-        },
-        {
-          id: 1,
-          image_path: "src/assets/kaoru.jpg",
-          name: "shiroko"
-        },
-        {
-          id: 1,
-          image_path: "src/assets/kaoru.jpg",
-          name: "shiroko"
-        },
-        {
-          id: 1,
-          image_path: "src/assets/kaoru.jpg",
-          name: "shiroko"
-        },
-        {
-          id: 1,
-          image_path: "src/assets/kaoru.jpg",
-          name: "shiroko"
-        },
-        {
-          id: 1,
-          image_path: "src/assets/kaoru.jpg",
-          name: "shiroko"
-        },
-        {
-          id: 1,
-          image_path: "src/assets/kaoru.jpg",
-          name: "shiroko"
-        },
-        {
-          id: 1,
-          image_path: "src/assets/kaoru.jpg",
-          name: "shiroko"
-        },
-      ]
-    };
-  },
-  components: {
-    mySidebar,
-    Header
-  },
-  methods: {
-    initConcernList() {
-      getConcernList({}).then(res => {
-        this.concernList = res.data;
-      });
-    },
-    clickConcernedUser(id){
-      console.log(id)
-      //TODO
-    }
-  },
-  created() {
-    //this.initConcernList();
-  }
+import Header from "../../components/header/myheader.vue"
+import {router} from "@/router";
+import {onMounted, ref} from "vue";
+import UserInfo from "@/pages/user/userInfo.vue";
+import {getConcernInfo} from "@/api/concern";
+
+
+let concernList = ref([] as UserInfo);
+
+function clickConcernedUser(userId:number,username:string)
+{
+  router.push({path: '/user/userIntroduction', query: { username: username ,id:userId}})
 }
+
+
+
+// onMounted(()=>{
+//   getConcernInfo()
+// })
+
 </script>
 
 <template>
@@ -76,8 +28,9 @@ export default {
     <el-main>
       <div class="concern-list">
         <h2>关注列表</h2>
-        <div v-for="concern in concernList" :key="concern.id" class="concern-item" @click="clickConcernedUser(concern.id)">
-          <el-image :src="concern.image_path" alt="用户头像" class="avatar"></el-image>
+        <div v-for="concern in concernList" :key="concern.id" class="concern-item"
+             @click="clickConcernedUser(concern.id,concern.name)">
+          <el-image src="" alt="用户头像" class="avatar"></el-image>
           <span class="username">{{ concern.name }}</span>
         </div>
       </div>

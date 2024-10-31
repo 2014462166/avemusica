@@ -4,7 +4,7 @@ import {onMounted,computed,onBeforeMount} from "vue";
 import {useRoute} from "vue-router";
 
 import {ref} from "vue";
-import {followUser, getConcernInfo, unfollowUser} from "@/api/user";
+import {followUser, getConcernInfo, unfollowUser} from "@/api/concern.ts";
 import UserInfo from "@/pages/user/userInfo.vue";
 import {ElMessage} from "element-plus";
 const router =useRoute();
