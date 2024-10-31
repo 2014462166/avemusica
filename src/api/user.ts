@@ -86,7 +86,19 @@ export const getConcernInfo  = async (username: string) => {
         .then(res => {
             return res;
         })
-        .catch(err => {
-            return err.response;
-        });
+
 };
+
+export const followUser = async (follower:number,followed:number)=>{
+    return axios.post(`${USER_MODULE}/follow`,null,{headers: {'Content-Type': 'application/json'},params:{followerId:follower,followedId:followed}})
+        .then(res=>{
+            return res;
+        })
+}
+export const unfollowUser = async (follower:number,followed:number)=>{
+    // @ts-ignore
+    return axios.post(`${USER_MODULE}/unfollow`,null,{headers: {'Content-Type': 'application/json'},params:{followerId:follower,followedId:followed}})
+        .then(res=>{
+            return res;
+        })
+}

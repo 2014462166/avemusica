@@ -11,6 +11,7 @@ const currentPage = ref(1);
 const pageSize = ref(4);
 const totalItems = ref(0);
 const username = ref("");
+const userId = ref()
 const playingAudio = ref<HTMLAudioElement | null>(null); // 用于存储当前播放的音频
 
 const musics = [
@@ -52,6 +53,7 @@ function handleSizeChange(newSize) {
 function getUserInfo() {
   userInfo().then(res => {
     username.value = res.data.result.username;
+    userId.value = res.data.result.id;
   });
 }
 
@@ -98,7 +100,7 @@ function handleAudioPlay(audioElement: HTMLAudioElement) {
           <el-card style="width: 100%">
             <el-row>
               <el-col :span="8">
-                <router-link :to="{ path: '/user/userIntroduction', query: { username: music.username } }">
+                <router-link :to="{ path: '/user/userIntroduction', query: { username: music.username ,id:userId} }">
                   <el-image style="width: 50%; height: 100px; border-radius: 6px" :src="music.imgUrl" :fit="'cover'" />
                 </router-link>
               </el-col>

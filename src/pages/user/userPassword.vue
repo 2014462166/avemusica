@@ -49,7 +49,9 @@ let confirmPassword = ref('')
       confirmPassword.value = '';
     };
 
-
+    const back=()=>{
+      router.push({path:"/user"})
+    }
 
 
 
@@ -77,6 +79,7 @@ let confirmPassword = ref('')
           <el-form-item>
             <el-button type="primary" @click="handleSubmit">提交</el-button>
             <el-button @click="resetForm">重置</el-button>
+            <el-button @click="back">返回</el-button>
           </el-form-item>
         </el-form>
       </el-card>
@@ -87,7 +90,7 @@ let confirmPassword = ref('')
 <style scoped>
 
 .change-password-card {
-  max-width: 400px;
+  max-width: 500px;
   margin: 50px auto;
   padding: 20px;
   border-radius: 8px;

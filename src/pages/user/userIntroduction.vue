@@ -1,17 +1,49 @@
 <script setup >
 
-import {onMounted, toRefs,watch} from "vue";
+import {onMounted,computed,onBeforeMount} from "vue";
 import {useRoute} from "vue-router";
 
 import {ref} from "vue";
-import {getConcernInfo} from "@/api/user";
+import {followUser, getConcernInfo, unfollowUser} from "@/api/user";
 import UserInfo from "@/pages/user/userInfo.vue";
+import {ElMessage} from "element-plus";
 const router =useRoute();
 let nickname = ref('')
 let avatarUrl = ref('')
 const username = ref("")
+const followerId = ref(0)
+const followedId = ref()
+const followList = ref([])
 
-// 更新 username
+
+const isFollowing = ref(); // 初始状态
+
+const loading = ref(false); // 加载状态
+
+const toggleFollow = async () => {
+  loading.value = true; // 开始加载
+  // 模拟 API 调用
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  if (isFollowing.value)
+  {
+    await unfollowUser(
+      followerId.value,
+      followedId.value
+    ).then(()=>{
+      ElMessage("已取消关注！")
+    })
+  }else {
+    followUser(
+      followerId.value,
+      followedId.value
+    ).then(()=>{
+      ElMessage("关注成功！")
+    })
+  }
+  isFollowing.value = !isFollowing.value; // 切换关注状态
+  loading.value = false; // 结束加载
+};
 
 
 
@@ -28,40 +60,58 @@ let user= ref({
   ],
 });
 
+
 function getInfo()
 {
-  console.log(username.value)
   getConcernInfo(
     username.value
   ).then(res=>{
-    console.log(res)
-    nickname.value=res.data.result.nickName;
+
+    nickname.value=res.data.result.nickname;
     avatarUrl.value = res.data.result.imgURL;
-    console.log(nickname.value)
-    console.log(avatarUrl.value)
+    followedId.value = res.data.result.id;
+    followList.value = res.data.result.followers;
+    isFollowing.value =(followList.value.indexOf(Number(followerId.value))>=0)
   })
 }
-onMounted(()=>{
 
+
+
+onBeforeMount(()=>{
   username.value = router.query.username;
+  followerId.value = router.query.id;
   getInfo();
-
 })
+
 </script>
 
 <template>
   <el-container>
     <el-main>
-      <div class="user-profile">
+      <el-row class="user-profile">
         <el-card class="card" >
-          <div class="header">
-            <el-avatar :src="avatarUrl" size="large"></el-avatar>
-            <div class="info">
-              <h2>{{ nickname }}</h2>
-              <p>粉丝数：{{ user.followers }}</p>
-              <p>关注数：{{ user.following }}</p>
-            </div>
-          </div>
+            <el-row>
+              <el-col :span="4">
+                <el-avatar :src="avatarUrl" size="large"></el-avatar>
+              </el-col>
+              <el-col :span="12" class="info">
+                <h2>{{ nickname }}</h2>
+                <p>粉丝数：{{ user.followers }}</p>
+                <p>关注数：{{ user.following }}</p>
+              </el-col>
+              <el-col :span="6" style="align-self: center">
+                <el-button
+                    :type="isFollowing ? 'default' : 'primary'"
+                    :loading="loading"
+                    @click="toggleFollow"
+                    class="follow-button"
+                >
+                  {{ isFollowing ? '取消关注' : '关注' }}
+                </el-button>
+              </el-col>
+            </el-row>
+
+
           <el-divider></el-divider>
           <h3>最近发布的音乐</h3>
           <el-form>
@@ -70,7 +120,7 @@ onMounted(()=>{
             </el-form-item>
           </el-form>
         </el-card>
-      </div>
+      </el-row>
     </el-main>
   </el-container>
 </template>
@@ -83,6 +133,7 @@ onMounted(()=>{
 
 .card {
   border-radius: 10px;
+  width: 800px;
 }
 
 .header {
@@ -98,7 +149,9 @@ h2 {
   margin: 0;
   font-size: 24px;
 }
-
+.follow-button {
+  width: 120px;
+}
 h3 {
   margin: 20px 0 10px;
 }

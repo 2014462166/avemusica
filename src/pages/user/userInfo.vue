@@ -8,6 +8,7 @@ import {
   Iphone, Male,
   OfficeBuilding, QuestionFilled, UploadFilled,
   User,
+  Back,
 } from '@element-plus/icons-vue';
 import img_URL from "@/assets/fulilian.jpg";
 import {UpdateUserInfo, userInfo} from "@/api/user.ts";
@@ -64,6 +65,10 @@ function getUserInfo()
     telephone.value = res.data.result.telephone;
     avatarUrl.value = res.data.result.imgURL
   })
+}
+
+const BackToUser = ()=>{
+  router.push({path:'/user'})
 }
 //更新用户信息
 function updateInfo()
@@ -284,6 +289,17 @@ onMounted(()=>{
           <Edit/>
         </el-icon>
       </el-button>
+
+        <el-button color="#39C5BB"  @click="BackToUser" round class="edit-button">
+          <el-text style="color: white">返回</el-text>
+          <el-icon style="color: white">
+            <Back />
+          </el-icon>
+        </el-button>
+
+
+
+
     </el-main>
   </el-container>
 
@@ -296,6 +312,7 @@ onMounted(()=>{
 }
 
 .edit-button{
+  margin-right: 10px;
   margin-top: 20px;
 }
 
