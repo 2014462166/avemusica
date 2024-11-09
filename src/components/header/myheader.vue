@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import { router } from "@/router";
 import { Search, User, Upload, SwitchButton } from "@element-plus/icons-vue";
 import { ElMessageBox } from "element-plus";

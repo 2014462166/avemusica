@@ -97,10 +97,10 @@ function handleAudioPlay(audioElement: HTMLAudioElement) {
 
       <el-row :gutter="20" class="music-list">
         <el-col :span="12" v-for="music in musicList" :key="music.id">
-          <el-card style="width: 100%">
+          <el-card style="width: 100%;margin: 10px">
             <el-row>
               <el-col :span="8">
-                <router-link :to="{ path: '/user/userIntroduction', query: { username: music.username ,id:userId} }">
+                <router-link :to="{ path: music.username==username?'/user':'/user/userIntroduction', query: { username: music.username ,id:userId} }">
                   <el-image style="width: 50%; height: 100px; border-radius: 6px" :src="music.imgUrl" :fit="'cover'" />
                 </router-link>
               </el-col>
@@ -124,6 +124,7 @@ function handleAudioPlay(audioElement: HTMLAudioElement) {
 
       <!-- Pagination Controls -->
       <el-pagination
+          style="margin-top: 5px"
           background
           layout="total, prev, pager, next, sizes"
           :total="totalItems"
@@ -138,9 +139,7 @@ function handleAudioPlay(audioElement: HTMLAudioElement) {
 </template>
 
 <style scoped>
-.header {
-  background-color: #409eff;
-}
+
 el-header {
   background-color: #4A90E2;
   color: white;
@@ -180,9 +179,8 @@ el-col {
   margin-bottom: 20px;
 }
 
-/* New styles for scrolling */
 .music-list {
-  max-height: 500px; /* Adjust height as needed */
-  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: 500px;
+  overflow-y: auto;
 }
 </style>

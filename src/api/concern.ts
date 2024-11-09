@@ -1,12 +1,26 @@
 import {axios} from "../utils/request";
 import {CONCERN_MODULE} from "./_prefix";
 
-type GetConcernListInfo = {
-
+export type GetConcernListInfo = {
+    id:number,
+    username:string,
+    imgURL:string,
+    nickname:string,
 }
 
-export const getConcernList = async (getConcernListInfo : GetConcernListInfo)=> {
-    return axios.post(`${CONCERN_MODULE}/getConcernList`,null,{params:getConcernListInfo})
+export type GetMusicListInfo = {
+    id:number,
+    musicname:string,
+    author:string,
+    description:string,
+    musicurl:string,
+    createTime:string,
+    imgurl:string
+}
+
+
+export const getConcernList = async ()=> {
+    return axios.get(`${CONCERN_MODULE}/following`,null,)
         .then(res=>{
             return res;
         })
@@ -34,3 +48,5 @@ export const unfollowUser = async (follower:number,followed:number)=>{
             return res;
         })
 }
+
+

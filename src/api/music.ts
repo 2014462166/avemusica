@@ -1,4 +1,4 @@
-import {MUSIC_MODULE} from "./_prefix";
+import {CONCERN_MODULE, MUSIC_MODULE} from "./_prefix";
 import {axios} from "../utils/request"
 export type MusicInfo={
     musicName:string,
@@ -50,3 +50,11 @@ export const musicsPageInfo = async (page: number, size: number) => {
             return err.response;
         });
 };
+
+export const getMusicList = async (username:string)=>{
+    return axios.get(`${MUSIC_MODULE}/getMusicList`,{params:{username:username}})
+        .then((res)=>{
+                return res;
+            }
+        )
+}

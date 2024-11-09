@@ -46,8 +46,8 @@ onMounted(()=>{
       <el-menu-item  index="/user">我的</el-menu-item>
 
     </el-menu>
-    <router-link to="/user/information">
-      <el-avatar style="position: relative;top: 40%;left: 30%" :size="80"  :src="avatarUrl"/>
+    <router-link  style="position: relative;top: 40%;left: 30%;background: none"  to="/user/information">
+      <el-avatar  :size="80" :src="avatarUrl"/>
     </router-link>
 
     <h1 style="position: relative;top: 40%;text-align: center">
