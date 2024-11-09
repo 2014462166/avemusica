@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { router } from "@/router";
 import { Search, User, Upload, SwitchButton } from "@element-plus/icons-vue";
-import { ElMessageBox } from "element-plus";
+import {ElMessage, ElMessageBox} from "element-plus";
 
 const role = sessionStorage.getItem('role'); // 登录时插入的
 
@@ -24,6 +24,11 @@ function logout() {
     router.push({ path: "/login" });
   });
 }
+
+function handleSearch(){
+  ElMessage.warning("搜索功能未实现！");
+  //TODO
+}
 </script>
 
 <template>
@@ -39,11 +44,11 @@ function logout() {
         <div class="search-container">
           <el-icon class="search-icon" :size="30"><Search /></el-icon>
           <el-input placeholder="搜索" class="search-input" />
-          <el-button class="search-button" type="success">搜索</el-button>
+          <el-button class="search-button" type="success" @click="handleSearch()">搜索</el-button>
         </div>
       </el-col>
 
-      <el-col :span="2"></el-col>
+      <el-col :span="1"></el-col>
 
       <el-col :span="1" class="header-icon">
         <router-link to="/musics/addMusic" v-slot="{navigate}">
